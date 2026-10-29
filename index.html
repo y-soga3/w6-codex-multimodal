@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fb">
+    <title>Ollama Multi-modal Image Describer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <main class="app">
+      <header class="page-header">
+        <p class="eyebrow">IMAGE TOOL</p>
+        <h1>Ollama Multi-modal Image Describer</h1>
+        <p class="intro">Choose an image to preview it, then describe it.</p>
+      </header>
+
+      <section class="workspace" aria-label="Image description">
+        <div class="controls">
+          <label class="file-button" for="image-input">Choose File</label>
+          <input id="image-input" class="visually-hidden" type="file" accept="image/*">
+          <span id="file-name" class="file-name">No image selected</span>
+          <button id="describe-button" class="describe-button" type="button">
+            Describe image
+          </button>
+        </div>
+
+        <div class="content-grid">
+          <section class="panel preview-panel" aria-labelledby="preview-title">
+            <h2 id="preview-title">Image preview</h2>
+            <div id="preview" class="preview" aria-live="polite">
+              <div id="empty-preview" class="empty-state">
+                <span class="image-icon" aria-hidden="true">▧</span>
+                <p>Your selected image will appear here</p>
+              </div>
+              <img id="preview-image" alt="Selected image preview" hidden>
+            </div>
+          </section>
+
+          <section class="panel description-panel" aria-labelledby="description-title">
+            <h2 id="description-title">LLM response</h2>
+            <div id="description" class="description" aria-live="polite">
+              <p id="description-placeholder" class="empty-state">The AI description will appear here.</p>
+            </div>
+          </section>
+        </div>
+      </section>
+      <p id="message" class="message" role="status" aria-live="polite"></p>
+    </main>
+  </body>
+</html>
