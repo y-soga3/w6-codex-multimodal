@@ -40,12 +40,39 @@ imageInput.addEventListener('change', () => {
   fileName.textContent = file.name;
 });
 
-describeButton.addEventListener('click', () => {
+describeButton.addEventListener('click', async () => {
   if (!imageInput.files?.[0]) {
     alert('Please upload an image first.');
     return;
   }
 
-  document.querySelector('#description').textContent = 'Waiting for input...';
+  const file = imageInput.files[0];
+  const description = document.querySelector('#description');
+  description.textContent = 'Waiting for input...';
   message.textContent = '';
+
+  const dataUrl = await new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => resolve(reader.result));
+    reader.readAsDataURL(file);
+  });
+  const base64Image = dataUrl.split(',')[1];
+
+  const response = await fetch('http://localhost:11434/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'llava',
+      messages: [
+        {
+          role: 'user',
+          content: 'Describe this image in detail.',
+          images: [base64Image]
+        }
+      ],
+      stream: false
+    })
+  });
+  const reply = await response.json();
+  description.textContent = reply.message.content;
 });
