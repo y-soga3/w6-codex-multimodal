@@ -48,31 +48,48 @@ describeButton.addEventListener('click', async () => {
 
   const file = imageInput.files[0];
   const description = document.querySelector('#description');
-  description.textContent = 'Waiting for input...';
+  description.textContent = 'Processing image, please wait...';
   message.textContent = '';
+  describeButton.disabled = true;
+  describeButton.textContent = 'Processing...';
 
-  const dataUrl = await new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => resolve(reader.result));
-    reader.readAsDataURL(file);
-  });
-  const base64Image = dataUrl.split(',')[1];
+  try {
+    const dataUrl = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => resolve(reader.result));
+      reader.addEventListener('error', () => reject(reader.error));
+      reader.readAsDataURL(file);
+    });
+    const base64Image = dataUrl.split(',')[1];
 
-  const response = await fetch('http://localhost:11434/api/chat', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: 'llava',
-      messages: [
-        {
-          role: 'user',
-          content: 'Describe this image in detail.',
-          images: [base64Image]
-        }
-      ],
-      stream: false
-    })
-  });
-  const reply = await response.json();
-  description.textContent = reply.message.content;
+    const response = await fetch('http://localhost:11434/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'llava',
+        messages: [
+          {
+            role: 'user',
+            content: 'Describe this image in detail.',
+            images: [base64Image]
+          }
+        ],
+        stream: false
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Ollama returned ${response.status}`);
+    }
+
+    const reply = await response.json();
+    description.textContent = reply.message.content;
+    message.textContent = 'Description ready.';
+  } catch (error) {
+    description.textContent = 'Could not reach Ollama. Please make sure Ollama is running and try again.';
+    message.textContent = '';
+  } finally {
+    describeButton.disabled = false;
+    describeButton.textContent = 'Describe image';
+  }
 });
