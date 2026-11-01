@@ -68,3 +68,7 @@ The "Describe Selected Images" button is now between the previews and the LLM re
 
 prompt 5 (Connect to Ollama for two descriptions)
 Please update style.css only so the "Select Images" button and the "Describe Selected Images" button use exactly the same color: the blue of the "Select Images" button. Use the same background color, text color, and hover color for both, ideally with a shared CSS class. Keep the disabled style for the Describe button (grey when disabled). Do not change how anything works. Please explain briefly what you changed.
+
+prompt 6 (Describe Image 1 with Ollama, and the alert when nothing is selected)
+Now connect the two-image page to Ollama in main.js, but only for Image 1 for now. When I click "Describe Selected Images": if no image is selected, show a pop-up alert "Please upload an image first." If Image 1 is selected, send it to Ollama (http://localhost:11434/api/chat, llava model, "stream": false, prompt "Describe this image in detail.") and show the description in the Image 1 Description area. Do not handle Image 2 yet. Please explain briefly what you changed.
+
