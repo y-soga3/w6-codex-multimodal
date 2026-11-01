@@ -1,0 +1,51 @@
+PROMPT HISTORY - w6-codex-multimodal
+
+TASK 1
+
+Prompt 1 (basic page):
+I'm building an image describer web app step by step. For this first step, create only a basic webpage with three files: index.html, style.css, and main.js. The page should have: a title, a button to select an image file from my computer, an area that shows a preview of the selected image, a "Describe Image" button, and an empty area where a description will appear later. Do not connect to any AI yet. Please also briefly explain what each file does.
+
+Prompt 2 (small fixes after testing the page):
+Please make these small changes to the page, without adding any AI yet:
+1. The file picker button currently shows "Choose file". Change its text to "Choose File". The browser's default text can't be edited directly, so hide the default input and use a styled button or label that opens the file picker. Keep the image preview working.
+2. Rename the heading "Description" to "LLM response".
+3. The button that says "Describe image" is currently disabled until an image is selected. Make it always clickable. If no image is selected when it is clicked, show a pop-up alert with the message "Please upload an image first."
+4. Keep the "Waiting for input..." text in the LLM response area as the starting message.
+Briefly explain what you changed in each file.
+
+Prompt 3 (small fixes the 2nd time):
+Please make these small changes to the page, without adding any AI yet:
+1. Rename the heading "Description" to "LLM response".
+2. Change the text of the button from "Describe Image" to "Describe image". The button is currently disabled until an image is selected. Make it always clickable. If no image is selected when it is clicked, show a pop-up alert with the message "Please upload an image first."
+3. The LLM response area should be empty when the page first loads. When "Describe image" is clicked with an image selected, show the text "Waiting for input..." in the LLM response area. (Later, the AI's description will replace this text.)
+Keep the file picker and the image preview working as they are. Briefly explain what you changed in each file.
+
+Prompt 4 (bug: broken image icon):
+Before any image is selected, the preview box shows a broken image icon with the alt text "Selected image preview" at the bottom. Please hide the image element until the user selects a file, so only the "Your selected image will appear here" placeholder is visible. After a file is selected, hide the placeholder and show the image. Briefly explain the cause of the bug and what you changed.
+
+Prompt 5 (improvement: placeholder in response box):
+The "LLM response" box is empty when the page loads, while the image preview box has a placeholder. Please add a matching placeholder inside the LLM response box, in the same style as the preview placeholder, with the text "The AI description will appear here." When "Describe image" is clicked with an image selected, replace the placeholder with "Waiting for input...". Do not add any AI yet. Briefly explain what you changed.
+
+Prompt 6 (correction: font size):
+The placeholder text in the LLM response box looks larger than the placeholder text in the image preview box. Please make both placeholders use exactly the same font size, color, and style. Do not change anything else. Briefly explain what you changed.
+
+Prompt 7 (question before writing code):
+I have a web page (index.html, style.css, main.js) where the user selects an image and clicks "Describe image". Before writing any code, please explain: 1) which type of Ollama model can understand images (I have llava installed), 2) how a browser can read the selected image and prepare it to send, 3) how the request to Ollama's local API should be structured, 4) how to read the AI's text response from the reply, and 5) any problem a web page opened from a file might have when calling Ollama. Keep the explanation short and simple, and do not change any files yet.
+
+Prompt 8 (connect to Ollama):
+Thanks. Now please implement only the connection to Ollama in main.js. When "Describe image" is clicked with an image selected: read the file as Base64 (without the "data:image/...;base64," prefix), send a POST request to http://localhost:11434/api/chat using the llava model with "stream": false and the prompt "Describe this image in detail.", then show reply.message.content in the LLM response box. Keep the "Waiting for input..." text while it waits. Do not add error handling yet. Briefly explain what you changed.
+
+Prompt 9 (loading, success, and error messages):
+Please add user feedback messages to main.js, keeping everything else as it is:
+1. While waiting for Ollama, show "Processing image, please wait..." in the LLM response box and disable the "Describe image" button so it can't be clicked twice. Re-enable it when finished.
+2. When the description arrives, show it in the LLM response box and show a short success message such as "Description ready." in a small status line near the button.
+3. If something goes wrong (for example Ollama is not running or the request fails), show a clear error message in the LLM response box, such as "Could not reach Ollama. Please make sure Ollama is running and try again.", and re-enable the button.
+4. Keep the pop-up alert "Please upload an image first." when no image is selected.
+Briefly explain what you changed.
+
+Prompt 10 (problem: disabled button did not look disabled):
+While the app is processing an image, the "Describe image" button is disabled but it does not look disabled. Please add a visible disabled style in style.css: a grey background, lighter text, a "not-allowed" cursor, and no hover effect. Also change the button text to "Processing..." while it waits, and back to "Describe image" when finished. Do not change anything else. Briefly explain what you changed.
+
+TASK 2
+
+(to be added)
