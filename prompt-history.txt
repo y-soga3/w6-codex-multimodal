@@ -48,4 +48,23 @@ While the app is processing an image, the "Describe image" button is disabled bu
 
 TASK 2
 
-(to be added)
+Prompt 1 (two-image page, no AI yet):
+I'm improving my multi-modal image describer web app for Task 2. Please update the existing files index.html, style.css, and main.js. Do not create new files. The page should have: the "Ollama Multi-modal Image Describer" title, a "Select Images" button to select one or two image files from my computer, two preview areas for the selected images (Image 1 and Image 2), a "Describe Selected Images" button, and two empty areas (LLM Responses: Image 1 Description and Image 2 Description) where descriptions will appear later. Do not connect to any AI yet. Please explain in short what you changed in each file.
+
+undo - Prompt 2 (layout fix, items 2 and 5):  
+Please make two layout changes to index.html and style.css, and do not connect any AI yet:
+1. The status message element (id "message" or class "message", currently shown with text like "P#message.message") appears at the bottom-left of the page. Move it directly under the "Select Images" and "Describe Selected Images" buttons, with a clean style.
+2. Show the two LLM response areas (Image 1 Description and Image 2 Description) below the image previews, instead of beside them. Keep the page tidy on a normal laptop screen.
+Please explain briefly what you changed.
+
+Prompt 2 (fix the previews in main.js)
+The two-image page layout is done in index.html and style.css, but the image previews don't work because main.js is still the Task 1 version for a single image. Please update only main.js so that: when I choose one or two images with "Select Images", Image 1 and Image 2 previews show correctly. If only one image is selected, show it as Image 1 and keep the Image 2 area as an empty placeholder. If I choose more than two, use only the first two. Do not connect to any AI yet. Please explain briefly what you changed.
+
+Prompt 3 (Move the Describe button to the middle)
+Please change the layout in index.html and style.css only, and do not change how anything works. Move the "Describe Selected Images" button so it sits between the two image preview areas and the two LLM response areas (Image 1 Description and Image 2 Description). Keep the "Select Images" button above the previews. Center the Describe button and keep the page tidy. Please explain briefly what you changed.
+
+Prompt 4 (Make the button full width)
+The "Describe Selected Images" button is now between the previews and the LLM response areas. Please update style.css only so this button is full width, stretching across the same width as the sections above and below it. Keep the same height and style as now. Do not change how anything works. Please explain briefly what you changed.
+
+prompt 5 (Connect to Ollama for two descriptions)
+Please update style.css only so the "Select Images" button and the "Describe Selected Images" button use exactly the same color: the blue of the "Select Images" button. Use the same background color, text color, and hover color for both, ideally with a shared CSS class. Keep the disabled style for the Describe button (grey when disabled). Do not change how anything works. Please explain briefly what you changed.

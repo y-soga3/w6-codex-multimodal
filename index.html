@@ -13,40 +13,55 @@
       <header class="page-header">
         <p class="eyebrow">IMAGE TOOL</p>
         <h1>Ollama Multi-modal Image Describer</h1>
-        <p class="intro">Choose an image to preview it, then describe it.</p>
       </header>
 
       <section class="workspace" aria-label="Image description">
         <div class="controls">
-          <label class="file-button" for="image-input">Choose File</label>
-          <input id="image-input" class="visually-hidden" type="file" accept="image/*">
-          <span id="file-name" class="file-name">No image selected</span>
-          <button id="describe-button" class="describe-button" type="button">
-            Describe image
-          </button>
+          <label class="file-button" for="image-input">Select Images</label>
+          <input id="image-input" class="visually-hidden" type="file" accept="image/*" multiple>
         </div>
+        <p id="message" class="message" role="status" aria-live="polite"></p>
 
         <div class="content-grid">
-          <section class="panel preview-panel" aria-labelledby="preview-title">
-            <h2 id="preview-title">Image preview</h2>
-            <div id="preview" class="preview" aria-live="polite">
-              <div id="empty-preview" class="empty-state">
-                <span class="image-icon" aria-hidden="true">▧</span>
-                <p>Your selected image will appear here</p>
+          <section class="panel" aria-labelledby="preview-title">
+            <h2 id="preview-title">Selected Images</h2>
+            <div class="image-grid">
+              <div class="image-slot">
+                <h3>Image 1</h3>
+                <div class="preview" aria-live="polite">
+                  <p id="empty-preview-1" class="empty-state">Select an image to preview</p>
+                  <img id="preview-image-1" alt="Preview of selected image 1" hidden>
+                </div>
               </div>
-              <img id="preview-image" alt="Selected image preview" hidden>
+              <div class="image-slot">
+                <h3>Image 2</h3>
+                <div class="preview" aria-live="polite">
+                  <p id="empty-preview-2" class="empty-state">Select a second image to preview</p>
+                  <img id="preview-image-2" alt="Preview of selected image 2" hidden>
+                </div>
+              </div>
             </div>
           </section>
 
-          <section class="panel description-panel" aria-labelledby="description-title">
-            <h2 id="description-title">LLM response</h2>
-            <div id="description" class="description" aria-live="polite">
-              <p id="description-placeholder" class="empty-state">The AI description will appear here.</p>
+          <div class="describe-row">
+            <button id="describe-button" class="describe-button" type="button">Describe Selected Images</button>
+          </div>
+
+          <section class="panel response-panel" aria-labelledby="response-title">
+            <h2 id="response-title">LLM Responses</h2>
+            <div class="response-grid">
+              <section class="response-card" aria-labelledby="response-image-1-title">
+                <h3 id="response-image-1-title">Image 1 Description</h3>
+                <div id="description-1" class="description" aria-live="polite"></div>
+              </section>
+              <section class="response-card" aria-labelledby="response-image-2-title">
+                <h3 id="response-image-2-title">Image 2 Description</h3>
+                <div id="description-2" class="description" aria-live="polite"></div>
+              </section>
             </div>
           </section>
         </div>
       </section>
-      <p id="message" class="message" role="status" aria-live="polite"></p>
     </main>
   </body>
 </html>
