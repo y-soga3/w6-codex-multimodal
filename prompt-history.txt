@@ -66,9 +66,11 @@ Please change the layout in index.html and style.css only, and do not change how
 Prompt 4 (Make the button full width)
 The "Describe Selected Images" button is now between the previews and the LLM response areas. Please update style.css only so this button is full width, stretching across the same width as the sections above and below it. Keep the same height and style as now. Do not change how anything works. Please explain briefly what you changed.
 
-prompt 5 (Connect to Ollama for two descriptions)
+Prompt 5 (Connect to Ollama for two descriptions)
 Please update style.css only so the "Select Images" button and the "Describe Selected Images" button use exactly the same color: the blue of the "Select Images" button. Use the same background color, text color, and hover color for both, ideally with a shared CSS class. Keep the disabled style for the Describe button (grey when disabled). Do not change how anything works. Please explain briefly what you changed.
 
-prompt 6 (Describe Image 1 with Ollama, and the alert when nothing is selected)
+Prompt 6 (Describe Image 1 with Ollama, and the alert when nothing is selected)
 Now connect the two-image page to Ollama in main.js, but only for Image 1 for now. When I click "Describe Selected Images": if no image is selected, show a pop-up alert "Please upload an image first." If Image 1 is selected, send it to Ollama (http://localhost:11434/api/chat, llava model, "stream": false, prompt "Describe this image in detail.") and show the description in the Image 1 Description area. Do not handle Image 2 yet. Please explain briefly what you changed.
 
+Prompt 7 (Describe Image 2 separately)
+Now also describe Image 2 in main.js. When I click "Describe Selected Images" and two images are selected, send Image 2 to Ollama separately, using the same request as Image 1 (llava model, "stream": false, prompt "Describe this image in detail."), and show its description in the Image 2 Description area. Image 1 and Image 2 must each get their own description. Do not change anything else. Please explain briefly what you changed.

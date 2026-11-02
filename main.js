@@ -2,6 +2,7 @@ const imageInput = document.querySelector('#image-input');
 const message = document.querySelector('#message');
 const describeButton = document.querySelector('#describe-button');
 const image1Description = document.querySelector('#description-1');
+const image2Description = document.querySelector('#description-2');
 const previewSlots = [
   {
     image: document.querySelector('#preview-image-1'),
@@ -29,6 +30,7 @@ function clearPreviews() {
 imageInput.addEventListener('change', () => {
   message.textContent = '';
   image1Description.textContent = '';
+  image2Description.textContent = '';
   clearPreviews();
 
   const files = Array.from(imageInput.files || []).slice(0, 2);
@@ -51,7 +53,8 @@ imageInput.addEventListener('change', () => {
 });
 
 describeButton.addEventListener('click', async () => {
-  const image1 = imageInput.files?.[0];
+  const images = Array.from(imageInput.files || []).slice(0, 2);
+  const image1 = images[0];
   if (!image1) {
     alert('Please upload an image first.');
     return;
@@ -59,15 +62,16 @@ describeButton.addEventListener('click', async () => {
 
   message.textContent = '';
   image1Description.textContent = 'Describing image...';
+  image2Description.textContent = images[1] ? 'Describing image...' : '';
   describeButton.disabled = true;
   describeButton.textContent = 'Processing...';
 
-  try {
+  const describeImage = async (file) => {
     const dataUrl = await new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.addEventListener('load', () => resolve(reader.result));
       reader.addEventListener('error', () => reject(reader.error));
-      reader.readAsDataURL(image1);
+      reader.readAsDataURL(file);
     });
     const base64Image = dataUrl.split(',')[1];
 
@@ -92,10 +96,23 @@ describeButton.addEventListener('click', async () => {
     }
 
     const result = await response.json();
-    image1Description.textContent = result.message.content;
-  } catch (error) {
-    image1Description.textContent = 'Could not reach Ollama. Make sure Ollama is running and try again.';
-    message.textContent = '';
+    return result.message.content;
+  };
+
+  try {
+    try {
+      image1Description.textContent = await describeImage(images[0]);
+    } catch (error) {
+      image1Description.textContent = 'Could not reach Ollama. Make sure Ollama is running and try again.';
+    }
+
+    if (images[1]) {
+      try {
+        image2Description.textContent = await describeImage(images[1]);
+      } catch (error) {
+        image2Description.textContent = 'Could not reach Ollama. Make sure Ollama is running and try again.';
+      }
+    }
   } finally {
     describeButton.disabled = false;
     describeButton.textContent = 'Describe Selected Images';
